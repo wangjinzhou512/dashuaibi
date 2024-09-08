@@ -9,7 +9,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-image: url('images/bj.jpg'); /* 设置背景图片 */
+            background-image: url('bj.jpg'); /* 确保背景图片的路径 */
             background-size: cover;
             background-position: center;
             font-family: 'Indie Flower', cursive; /* 可爱字体 */
@@ -109,7 +109,7 @@
 
         <div id="photo-container">
             <span class="nav-btn" id="prev-btn" onclick="prevPhoto()">◀️</span>
-            <img id="photo" src="images/DSCF8955.jpg" alt="王锦洲照片">
+            <img id="photo" src="DSCF8955.jpg" alt="王锦洲照片"> <!-- 确保图片路径正确 -->
             <span class="nav-btn" id="next-btn" onclick="nextPhoto()">▶️</span>
         </div>
     </div>
@@ -120,7 +120,7 @@
     <script>
         let clickCount = 0;
         let currentPhotoIndex = 0;
-        const photos = ["images/DSCF8955.jpg", "images/DSCF8968.jpg", "images/DSCF8969.jpg"];
+        const photos = ["DSCF8955.jpg", "DSCF8968.jpg", "DSCF8969.jpg"];  // 确保图片路径正确
         let button = document.getElementById('magic-button');
         let title = document.getElementById('main-title');
         let photoContainer = document.getElementById('photo-container');
