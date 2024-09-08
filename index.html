@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击查看大帅比</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('images/bj.jpg'); /* 设置背景图片 */
+            background-size: cover;
+            background-position: center;
+            font-family: 'Indie Flower', cursive; /* 可爱字体 */
+            text-align: center;
+            color: #333;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #ff69b4; /* 亮粉色按钮 */
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            font-family: 'Indie Flower', cursive; /* 使用可爱字体 */
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            animation: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(50vw, 50vh);
+            }
+        }
+
+        @keyframes spinZoom {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        #photo-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #photo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border: 4px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            animation: none;
+        }
+
+        .nav-btn {
+            margin: 20px;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ff1493; /* 深粉色标题 */
+            margin-bottom: 20px;
+        }
+
+        /* 返回主页按钮 */
+        #back-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #ff6347;
+            color: white;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none; /* 初始隐藏 */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="main-title">点击查看大帅比</h1>
+        <button id="magic-button" onclick="handleClick()">点击！！！</button>
+
+        <div id="photo-container">
+            <span class="nav-btn" id="prev-btn" onclick="prevPhoto()">◀️</span>
+            <img id="photo" src="images/DSCF8955.jpg" alt="王锦洲照片">
+            <span class="nav-btn" id="next-btn" onclick="nextPhoto()">▶️</span>
+        </div>
+    </div>
+
+    <!-- 返回主页按钮 -->
+    <button id="back-home" onclick="goHome()">返回主页</button>
+
+    <script>
+        let clickCount = 0;
+        let currentPhotoIndex = 0;
+        const photos = ["images/DSCF8955.jpg", "images/DSCF8968.jpg", "images/DSCF8969.jpg"];
+        let button = document.getElementById('magic-button');
+        let title = document.getElementById('main-title');
+        let photoContainer = document.getElementById('photo-container');
+        let photo = document.getElementById('photo');
+        let backHomeBtn = document.getElementById('back-home');
+
+        function handleClick() {
+            clickCount++;
+
+            if (clickCount === 1) {
+                button.style.transform = 'scale(0.8)';
+                title.innerText = '请抓住这个按钮';
+            } else if (clickCount === 2 || clickCount === 3) {
+                button.style.transition = 'transform 0.2s ease';
+                button.style.transform = `scale(${1 - clickCount * 0.2})`;
+                button.style.animation = `bounce 1s infinite`;
+            } else if (clickCount === 4) {
+                button.style.display = 'none'; // 隐藏按钮
+                title.innerText = '';
+                showPhoto();
+                backHomeBtn.style.display = 'block'; // 显示返回主页按钮
+            }
+        }
+
+        function showPhoto() {
+            photoContainer.style.display = 'block';
+            photo.style.animation = 'spinZoom 2s ease-in-out';
+            // 显示“下一张”按钮
+            document.getElementById('prev-btn').style.display = 'inline';
+            document.getElementById('next-btn').style.display = 'inline';
+        }
+
+        function updatePhoto() {
+            photo.src = photos[currentPhotoIndex];
+        }
+
+        function nextPhoto() {
+            currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+            updatePhoto();
+        }
+
+        function prevPhoto() {
+            currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+            updatePhoto();
+        }
+
+        function goHome() {
+            photoContainer.style.display = 'none';
+            button.style.display = 'block'; // 重新显示按钮
+            title.innerText = '点击查看大帅比';
+            backHomeBtn.style.display = 'none'; // 隐藏返回主页按钮
+        }
+    </script>
+
+</body>
+</html>
